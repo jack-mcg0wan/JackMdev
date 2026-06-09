@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jack McGowan — Web Development</title>
+  <meta name="description" content="Clean, fast websites for small businesses and creatives. Based in Nottingham." />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:        #181610;
+      --bg-subtle: #1e1c14;
+      --text:      #e8e5d0;
+      --muted:     #7a7660;
+      --border:    rgba(232, 229, 208, 0.1);
+      --border-mid:rgba(232, 229, 208, 0.2);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Nav ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.25rem 2.5rem;
+      background: var(--bg);
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .nav-logo {
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--text);
+      text-decoration: none;
+    }
+
+    .nav-contact {
+      font-size: 12px;
+      color: var(--text);
+      text-decoration: none;
+      border: 0.5px solid var(--border-mid);
+      padding: 6px 18px;
+      border-radius: 99px;
+      letter-spacing: 0.04em;
+      transition: border-color 0.2s;
+    }
+
+    .nav-contact:hover {
+      border-color: rgba(232, 229, 208, 0.5);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      padding: 5rem 2.5rem 4.5rem;
+      max-width: 700px;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+    }
+
+    h1 {
+      font-size: clamp(32px, 5vw, 48px);
+      font-weight: 500;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 420px;
+    }
+
+    /* ── Divider ── */
+    .divider {
+      height: 0.5px;
+      background: var(--border);
+      margin: 0 2.5rem;
+    }
+
+    /* ── Section ── */
+    .section {
+      padding: 3.5rem 2.5rem;
+    }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 2rem;
+    }
+
+    /* ── Work items ── */
+    .work-list {
+      list-style: none;
+    }
+
+    .work-item {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 0.5rem 2rem;
+      align-items: start;
+      padding: 1.5rem 0;
+      border-bottom: 0.5px solid var(--border);
+    }
+
+    .work-item:first-child {
+      border-top: 0.5px solid var(--border);
+    }
+
+    .work-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 0.4rem;
+    }
+
+    .work-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .work-title a:hover {
+      opacity: 0.7;
+    }
+
+    .work-desc {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 0.75rem;
+    }
+
+    .work-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-size: 11px;
+      color: var(--muted);
+      border: 0.5px solid rgba(232, 229, 208, 0.15);
+      padding: 3px 9px;
+      letter-spacing: 0.02em;
+    }
+
+    .work-type {
+      font-size: 11px;
+      color: var(--muted);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      white-space: nowrap;
+      padding-top: 2px;
+    }
+
+    /* ── Contact ── */
+    .contact-intro {
+      font-size: 15px;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .field label {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .field input,
+    .field textarea {
+      background: transparent;
+      border: none;
+      border-bottom: 0.5px solid var(--border-mid);
+      padding: 8px 0;
+      font-size: 14px;
+      font-family: inherit;
+      color: var(--text);
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .field input:focus,
+    .field textarea:focus {
+      border-bottom-color: rgba(232, 229, 208, 0.5);
+    }
+
+    .field textarea {
+      resize: none;
+      height: 100px;
+    }
+
+    .field-full {
+      margin-bottom: 1.5rem;
+    }
+
+    .send-btn {
+      background: transparent;
+      color: var(--text);
+      border: 0.5px solid var(--border-mid);
+      padding: 10px 28px;
+      border-radius: 99px;
+      font-size: 13px;
+      font-family: inherit;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: border-color 0.2s;
+      margin-top: 0.5rem;
+    }
+
+    .send-btn:hover {
+      border-color: rgba(232, 229, 208, 0.5);
+    }
+
+    /* ── Footer ── */
+    footer {
+      padding: 1.5rem 2.5rem;
+      border-top: 0.5px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .footer-links a {
+      font-size: 12px;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      nav {
+        padding: 1rem 1.25rem;
+      }
+
+      .hero {
+        padding: 3rem 1.25rem 2.5rem;
+      }
+
+      .divider {
+        margin: 0 1.25rem;
+      }
+
+      .section {
+        padding: 2.5rem 1.25rem;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .work-item {
+        grid-template-columns: 1fr;
+      }
+
+      .work-type {
+        display: none;
+      }
+
+      footer {
+        padding: 1.25rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/" class="nav-logo">jackmcgowan.dev</a>
+    <a href="#contact" class="nav-contact">Contact</a>
+  </nav>
+
+  <main>
+
+    <section class="hero">
+      <p class="eyebrow">Web development &middot; Nottingham</p>
+      <h1>Websites for local businesses<br>and creatives.</h1>
+      <p class="hero-sub">I'm Jack — a cyber security student from West Bridgford, currently building websites on the side. You get a clean, fast site you actually own and can update yourself. No agencies, no lock-in, no platform subscriptions. Clean websites for people who just need one that works. I'm also an amateur photographer — if you need simple, decent photos to go with your site, I can help with that too.</p>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" aria-label="Work">
+      <p class="section-label">Work</p>
+      <ul class="work-list">
+
+        <li class="work-item">
+          <div>
+            <p class="work-title">
+              <a href="https://birkett-oliver-photo.pages.dev" target="_blank" rel="noopener">Birkett Oliver Photography</a>
+            </p>
+            <p class="work-desc">Portfolio site for a London-based photographer. Masonry gallery with a browser-based CMS — client manages their own photos without touching code.</p>
+            <div class="work-tags">
+              <span class="tag">Portfolio</span>
+              <span class="tag">CMS</span>
+              <span class="tag">Cloudflare Pages</span>
+            </div>
+          </div>
+          <span class="work-type">Portfolio</span>
+        </li>
+
+      </ul>
+    </section>
+
+    <div class="divider"></div>
+
+    <section class="section" id="contact" aria-label="Contact">
+      <p class="section-label">Get in touch</p>
+      <p class="contact-intro">Based in Nottingham. Happy to have a no-commitment chat about what you need.</p>
+
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_KEY" />
+        <input type="hidden" name="subject" value="New enquiry via jackmcgowan.dev" />
+        <input type="checkbox" name="botcheck" style="display:none" />
+
+        <div class="form-row">
+          <div class="field">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" placeholder="Your name" required />
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" placeholder="your@email.com" required />
+          </div>
+        </div>
+
+        <div class="field field-full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" placeholder="Tell me a bit about what you're looking for..." required></textarea>
+        </div>
+
+        <button type="submit" class="send-btn">Send</button>
+      </form>
+    </section>
+
+  </main>
+
+  <footer>
+    <span class="footer-copy">&copy; 2026 Jack McGowan</span>
+
+  </footer>
+
+</body>
+</html>
